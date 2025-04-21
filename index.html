@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blox Gacha - Evento de Pascua</title>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Fredoka&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('https://img.freepik.com/vector-premium/fondo-patron-huevos-pascua_62539-67.jpg?w=1380');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Luckiest Guy', cursive;
+      font-size: 48px;
+      margin-top: 60px;
+      color: black;
+      text-shadow: 2px 2px 4px #ffffff77;
+    }
+
+    .machine {
+      max-width: 420px;
+      width: 95%;
+      margin: 10px 0 30px 0;
+    }
+
+    .button {
+      font-family: 'Fredoka', sans-serif;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 15px 50px;
+      font-size: 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .subtitle {
+      margin-top: 60px;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-size: 18px;
+      color: black;
+    }
+
+    .egg-container {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .egg {
+      max-width: 200px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .egg:hover {
+      transform: scale(1.1);
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 15px 30px;
+      border-radius: 15px;
+    }
+
+    .countdown {
+      font-size: 40px;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #000;
+      animation: pop 0.5s ease-in-out;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Blox Gacha</h1>
+
+  <img class="machine" src="https://i.imgur.com/C3RlOl0_d.png?maxwidth=520&shape=thumb&fidelity=high" alt="Máquina de huevos de Pascua">
+  
+  <button class="button" onclick="generarHuevo()">Obtener 🥚</button>
+
+  <div class="countdown" id="countdown"></div>
+  <div class="egg-container" id="eggContainer"></div>
+  <div class="result" id="result"></div>
+
+  <div class="subtitle">By: Alan</div>
+
+  <script>
+    const huevos = [
+      {
+        img: "https://i.imgur.com/SoMWSxj.png",
+        contenido: "Blox Fruits PvP"
+      },
+      {
+        img: "https://i.imgur.com/V5DDa7r.png",
+        contenido: "Esconde o Muere"
+      },
+      {
+        img: "https://i.imgur.com/WREvBiC.png",
+        contenido: "Simon Dice"
+      },
+      {
+        img: "https://i.imgur.com/OiT3mFN.png",
+        contenido: "Rogué Demon"
+      }
+    ];
+
+    function generarHuevo() {
+      const contenedor = document.getElementById("eggContainer");
+      const resultado = document.getElementById("result");
+      const countdown = document.getElementById("countdown");
+
+      contenedor.innerHTML = "";
+      resultado.textContent = "";
+      countdown.textContent = "3";
+
+      let counter = 3;
+      const interval = setInterval(() => {
+        counter--;
+        countdown.textContent = counter;
+        if (counter === 0) {
+          clearInterval(interval);
+          countdown.textContent = "";
+
+          const huevo = huevos[Math.floor(Math.random() * huevos.length)];
+
+          const img = document.createElement("img");
+          img.src = huevo.img;
+          img.alt = "Huevo sorpresa";
+          img.className = "egg";
+
+          img.onclick = () => {
+            img.style.display = "none";
+            resultado.textContent = huevo.contenido;
+          };
+
+          contenedor.appendChild(img);
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
